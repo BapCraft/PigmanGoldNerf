@@ -1,12 +1,17 @@
 package com.bapcraft.nerf.pigman;
 
-import org.bukkit.Bukkit;
+import java.util.List;
+
 import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PigmanGoldNerf extends JavaPlugin {
 
 	public static PigmanGoldNerf INSTANCE;
+	
+	public List<String> suppressionWorlds;
+	public String itemRegex;
 	
 	@Override
 	public void onEnable() {
@@ -15,6 +20,9 @@ public class PigmanGoldNerf extends JavaPlugin {
 		
 		// Config crap.
 		this.saveDefaultConfig();
+		FileConfiguration fc = this.getConfig();
+		this.suppressionWorlds = fc.getStringList("worlds");
+		this.itemRegex = fc.getString("removalregex");
 		
 		// Register the listener.
 		this.getPluginLoader().createRegisteredListeners(new PigmanDropSuppressor(), this);
@@ -29,10 +37,7 @@ public class PigmanGoldNerf extends JavaPlugin {
 	}
 	
 	public boolean hasBlockedDrops(World world) {
-		
-		// TODO Use configs.
-		return world.getName().equals(Bukkit.getWorlds().get(0).getName());
-		
+		return this.suppressionWorlds.contains(world.getName());
 	}
 	
 }
