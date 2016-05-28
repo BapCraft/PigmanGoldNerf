@@ -30,7 +30,10 @@ public class PigmanDropSuppressor implements Listener {
 		Entity e = event.getEntity();
 		
 		if (this.blockedDrops.contains(e)) {
+			
 			event.getDrops().removeIf(is -> is.getType().name().toLowerCase().matches(PigmanGoldNerf.INSTANCE.itemRegex));
+			this.blockedDrops.remove(e);
+			
 		}
 		
 	}
