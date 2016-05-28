@@ -1,0 +1,4 @@
+name: 'PigmanGoldNerf'
+main: 'com.bapcraft.nerf.pigman.PigmanGoldNerf'
+author: 'treyzania'
+version: '1.0.0'

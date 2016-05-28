@@ -13,6 +13,9 @@ public class PigmanGoldNerf extends JavaPlugin {
 		
 		INSTANCE = this;
 		
+		// Config crap.
+		this.saveDefaultConfig();
+		
 		// Register the listener.
 		this.getPluginLoader().createRegisteredListeners(new PigmanDropSuppressor(), this);
 		
