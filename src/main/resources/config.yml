@@ -1,4 +1,4 @@
 # Config file for Treyzania's PigmanGoldNerf, for BapCraft.
-removalregex: 'gold'
+removalcontains: 'gold'
 worlds:
     - YourOverworldName
