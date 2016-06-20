@@ -3,7 +3,6 @@ package com.bapcraft.nerf.pigman;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Monster;
@@ -14,7 +13,7 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 
 public class PigmanDropSuppressor implements Listener {
 
-	public List<Monster> blockedDrops = new ArrayList<>();
+	private volatile List<Monster> blockedDrops = new ArrayList<>();
 	
 	@EventHandler
 	public void onEntitySpawn(EntitySpawnEvent event) {
@@ -22,16 +21,10 @@ public class PigmanDropSuppressor implements Listener {
 		Entity e = event.getEntity();
 		EntityType type = e.getType();
 
-		if (type == EntityType.PIG_ZOMBIE) {
+		if (type == EntityType.PIG_ZOMBIE && PigmanGoldNerf.INSTANCE.hasBlockedDrops(e.getWorld())) {
 			
-			Bukkit.getLogger().info("Checking entity " + e);
-			
-			if (PigmanGoldNerf.INSTANCE.hasBlockedDrops(e.getWorld())) {
-				
-				Bukkit.getLogger().info("Blocking drops for " + e);
-				this.blockedDrops.add((Monster) e);
-				
-			}
+			// We don't actually deal with the drops until they die.  Just add them to the list.
+			this.blockedDrops.add((Monster) e);
 			
 		}
 
